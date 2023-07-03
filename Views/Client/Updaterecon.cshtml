@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewBag.Title = "Updaterecon";
+}
+
+
+
+<style>
+
+
+    #btn {
+        height: 28px;
+        margin-left: 7rem;
+        padding-top: 4px;
+        font-weight: bolder;
+        color: #242323;
+        box-sizing: border-box;
+        box-shadow: 0px 1px black;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 1rem;
+    }
+
+    #dropdown {
+        margin-left: 14px;
+    
+    }
+
+    .filter {
+        background-color: #Ffffff;
+        height: 21rem;
+        width: 31%;
+        margin-left: 31.5rem;
+        margin-top: 12.5rem;
+        border-bottom: 0.5px solid black;
+        box-shadow: 0px 3px 4px 2px;
+        padding: 2rem;
+    }
+
+
+
+    #search {
+        font-weight: 600;
+        margin: 1rem 1.2rem auto auto;
+    }
+    #name {
+        font-weight: 600;
+        margin: 1rem 1.2rem auto auto;
+    }
+    #update {
+        box-shadow: 0px 1px 5px 1px;
+        margin-top: -2rem;
+        padding: 2px 2px 0px 11rem;
+        width: 34.5rem;
+        margin-left: -2rem;
+        background: #fcaf17;
+    }
+
+</style>
+
+<div style="margin-left:2rem" class="container">
+
+    <div class="filter">
+        <div id="update">
+            <label><strong style="font-family: math; color: black;">UPDATE RECON</strong></label>
+        </div>
+        <div style="margin-top: 1rem;">
+            <select id="dropdown" onchange="dropdownchange()" class="form-control">
+                <option value="">--Please Select-- </option>
+                <option value="Name">Name</option>
+                <option value="Active Flag">Active flag</option>
+                <option value="Permission">Permission</option>
+                <option value="DOB">DOB</option>
+                <option value="Pan">Pan</option>
+                <option value="nominee name">nominee name</option>
+                <option value="holding nature">holding nature</option>
+            </select>
+        </div>
+
+        <input id="search" type="text" autocomplete="off" class="form-control" placeholder="Enter Client Code" />
+        <input id="name" type="text" class="form-control" />
+        @*@<input id="btn" class="btn-buy btn-primary" type="button" value="Search" onclick="SearchIPO()" />*@
+        <button id="btn" class="btn btn-primary" onclick="Updaterecon()">UPDATE</button>
+
+
+
+
+
+    </div>
+</div>
+<script src="~/Scripts/Custom/Updaterecon.js"></script>
+
+@*<script>
+    function dropdownchange() {
+        var value = $('#dropdown').val();
+
+
+        $('#name').attr("placeholder", "Enter Client " + value + "")
+            
+            return;
+      
+    }
+</script>*@
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $("#search,#dropdown").change(function () {
+            getdataCleint();
+        }).keyup(function () {
+            getdataCleint();
+        });
+    });
+</script>
+
+<script>
+    function Updaterecon() {
+        debugger;
+        var value = $('#dropdown').val();
+        var clientcode = $('#search').val();
+        var modiefy = $('#name').val();
+
+        if (value == "" && clientcode == "") {
+            $("#myModal").modal('show');
+            $("#SpnMsg").html("All Fields Required");
+            return;
+        }
+        if (value == "") {
+            $("#myModal").modal('show');
+            $("#SpnMsg").html("Select Dropdownlist");
+            return;
+        }
+        if (clientcode == "") {
+            $("#myModal").modal('show');
+            $("#SpnMsg").html("Enter ClientCode");
+            return;
+        }
+
+
+        var con = confirm("Are Sure You Want to Update  " + value);
+        if (con) {
+            var dataValue = '{ "type": "' + value + '","clientcode" : "' + clientcode + '","modifytype":"' + modiefy + '"}';
+
+            $.ajax({
+                type: "POST",
+                url: "/Client/UpdateRecon",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: dataValue,
+
+                success: function (result) {
+                    debugger;
+
+                    //if ($("#name").val() == "") {
+                    //    return;
+                    //}
+                    if (result.status == 1) {
+                        clear()
+                        $("#myModal").modal('show');
+                        $("#SpnMsg").html(value + " " + result.Message).css('color', "Green");
+                        return;
+                    }
+                    if (result.status == 0) {
+                        clear()
+                        $("#myModal").modal('show');
+                        $("#SpnMsg").html(result.Message);
+                        return;
+                    }
+                },
+
+                error: function (result) {
+                    debugger;
+                    alert("ENTER VALID CLIENT CODE");
+                }
+            });
+
+        }
+        
+    }
+
+
+    function getdataCleint() {
+        debugger;
+        var value = $('#dropdown').val();
+        var clientcode = $('#search').val();
+
+        if (value == "" && clientcode == "") {
+            $('#name').val();
+            return;
+        }
+
+
+        else {
+            var dataValue = '{ "type": "' + value + '","clientcode" : "' + clientcode + '"}';
+            $.ajax({
+                type: "POST",
+                url: "/Client/GetdetailsRecon",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: dataValue,
+                success: function (result) {
+                    debugger;
+                    $('#name').val(result);
+                },
+                error: function (result) {
+                    debugger;
+                    alert(result);
+                }
+            });
+        }
+
+    }
+     function clear() {
+        $('#dropdown').val("");
+        $('#search').val("");
+        $('#name').val("");
+    }
+</script>

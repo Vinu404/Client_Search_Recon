@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Content/assets/img/favicon.png" rel="icon">
+    <link href="~/Content/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="~/Content/assets/css/Getdetails.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <!--Font awosome link-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/style1.css" rel="stylesheet" />
+
+
+
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+<body id="smallbg">
+    <style>
+
+        header.stick {
+            margin-top: -7rem;
+            position: fixed;
+            width: 100%;
+            z-index: 10000
+        }
+    </style>
+    <section style=" margin-top: -16rem; background-color: white;" id="topbar" class="d-flex align-items-center">
+
+        <div class="container">
+
+            <img style="height: 35rem; margin: -11rem 0rem -6rem -6rem; padding-top: 15rem" src="~/Content/assets/img/motilal_oswal-01.png" />
+
+
+
+        </div>
+        <span style="margin-left: -14rem; font-size: 16px; font-family: auto; color: black; margin-top: 10rem;">UserName :- @User.Identity.Name</span>
+
+        <a href="@Url.Action("Logout","Home")" title="LOGOUT"><i class="fa fa-sign-out" style=" font-size: 36px; margin-right: 8rem; margin-top: 10rem; padding: 2rem"></i></a>
+       
+        
+    </section>
+
+    <header style="height: 33px; box-shadow: black 0px 2px 3px; background: #fcaf17;" id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+
+            <nav style="margin: 0px 0rem 0rem -12rem; position: fixed;" id="navbar" class="navbar">
+                @if (User.Identity.IsAuthenticated)
+                {
+                <ul style="text-transform: uppercase; display: flex; list-style: none; margin-top: -2px;">
+                    <li>@Html.ActionLink("Fresh", "Fresh", "Client")</li>
+                    <li><strong style="font-size: 15px; font-weight: bolder;">|</strong></li>
+                    <li class="dropdown" style="padding: 11px 0 13px 22px;">
+
+                        <a href="#">
+                            Genrate Text File
+                            <i class="bi bi-chevron-down"></i>
+                        </a>
+                        <ul style="list-style: none;">
+                            <li><a style="color:black" href="@Url.Action("GetdetailsCilent", "Client")">Single Text File</a></li>
+                            <li><a style="color:black" href="@Url.Action("UploadFile", "Client")">Bulk File</a></li>
+                        </ul>
+                    <li><strong style="font-size: 15px; font-weight: bolder;">|</strong></li>
+
+                    <li>@Html.ActionLink("Dowload Excel File", "DowloadExcelFile", "Client")</li>
+                    <li><strong style="font-size: 15px; font-weight: bolder;">|</strong></li>
+                    <li>@Html.ActionLink("Update Query", "Updaterecon", "Client")</li>
+                    <li><strong style="font-size: 15px; font-weight: bolder;">|</strong></li>
+                    <li class="dropdown" style="padding: 11px 0 13px 22px;">
+
+                        <a href="#">
+                            Dashboard
+                            <i class="bi bi-chevron-down"></i>
+                        </a>
+                        <ul style="list-style: none;">
+                            <li><a style="color:black" href="http://192.168.99.33:1035/UI/Common/UserLogin.aspx" target="_blank">DION PANEL</a></li>
+                            <li><a style="color:black" href="https://bsestarmf.in/index.aspx" target="_blank">BSE PANEL</a></li>
+                        </ul>
+
+                </ul>
+
+                }
+                else
+                {
+                    <ul style="text-transform:uppercase">
+
+                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    </ul>
+                }
+
+            </nav>
+        </div>
+    </header>
+    @Html.Partial("_Loading")
+    @Html.Partial("_model")
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/navbadscroll.js"></script>
+</body>
+</html>

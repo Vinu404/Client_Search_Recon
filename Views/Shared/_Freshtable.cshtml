@@ -1,0 +1,750 @@
+﻿@using System.Data
+@using ClientserachUtiliy.Models
+@model DataSet
+
+@{
+    DataSet _dsData = Model != null ? Model : new DataSet();
+
+    DataTable _dtIPOList = _dsData.Tables[0] != null ? _dsData.Tables[0] : new DataTable();
+    DataTable _dtIPOList1 = _dsData.Tables[1] != null ? _dsData.Tables[1] : new DataTable();
+    DataTable _dtIPOList2 = _dsData.Tables[2] != null ? _dsData.Tables[2] : new DataTable();
+    DataTable _dtIPOList3 = _dsData.Tables[3] != null ? _dsData.Tables[3] : new DataTable();
+    DataTable _dtIPOList4 = _dsData.Tables[4] != null ? _dsData.Tables[4] : new DataTable();
+    DataTable _dtIPOList5 = _dsData.Tables[5] != null ? _dsData.Tables[5] : new DataTable();
+    DataTable _dtIPOList6 = _dsData.Tables[6] != null ? _dsData.Tables[6] : new DataTable();
+    DataTable _dtIPOList7 = _dsData.Tables[7] != null ? _dsData.Tables[7] : new DataTable();
+    DataTable _dtIPOList8 = _dsData.Tables[8] != null ? _dsData.Tables[8] : new DataTable();
+    DataTable _dtIPOList9 = _dsData.Tables[9] != null ? _dsData.Tables[9] : new DataTable();
+
+
+}
+
+
+
+<link href="~/Content/TableCss.css" rel="stylesheet" />
+
+    @for (int Mo = 0; Mo <= 0; Mo++)
+    {
+
+        <div id="border">
+            <div class="row">
+                <label>Client Details_CBOS</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+                        @if (_dtIPOList != null && _dtIPOList.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count = _dtIPOList.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count; i++)
+                                        {
+                                            <th>@_dtIPOList.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList.Rows[j][k]</td>
+
+
+
+                                            }
+                                        </tr>
+
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records </h2>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <label>Client Details_DION</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+                        @if (_dtIPOList1 != null && _dtIPOList1.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count1 = _dtIPOList1.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count1; i++)
+                                        {
+                                            <th>@_dtIPOList1.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int j = 0; j < _dtIPOList1.Rows.Count; j++)
+                                    {
+                                        <tr>
+
+                                            @for (int k = 0; k < _dtIPOList1.Columns.Count; k++)
+                                            {
+                                                if (k == 2)
+                                                {
+                                                    var c = _dtIPOList.Rows[j][k].ToString();
+                                                    var d = _dtIPOList1.Rows[j][k].ToString();
+
+                                                    if (c.Trim() != d.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList1.Rows[j][k]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][k]</td>
+                                                    }
+                                                }
+                                                else if (k == 4)
+                                                {
+                                                    var a = _dtIPOList.Rows[j][k].ToString();
+                                                    var b = _dtIPOList1.Rows[j][k].ToString();
+
+                                                    if (a.Trim() != b.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList1.Rows[j][k]</td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][k]</td>
+                                                    }
+                                                }
+                                                else if (k == 9)
+                                                {
+                                                    var g = _dtIPOList.Rows[j][5].ToString();
+                                                    var h = _dtIPOList1.Rows[j][9].ToString();
+                                                    if (g.Trim() == "")
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][9]</td>
+
+                                                    }
+                                                    else if (g.Trim() != h.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList1.Rows[j][9]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][9]</td>
+                                                    }
+                                                }
+                                                else if (k == 7)
+                                                {
+                                                    var city = _dtIPOList.Rows[j][10].ToString();
+                                                    var corecity = _dtIPOList1.Rows[j][7].ToString();
+                                                    if (city.Trim() == "")
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][7]</td>
+
+                                                    }
+                                                    else if (city.Trim().ToUpper() != corecity.Trim().ToUpper())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList1.Rows[j][7]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][7]</td>
+                                                    }
+                                                }
+                                                else if (k == 8)
+                                                {
+                                                    var state = _dtIPOList.Rows[j][11].ToString().ToUpper();
+                                                    var corestate = _dtIPOList1.Rows[j][8].ToString().ToUpper();
+                                                    if (state.Trim() == "")
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][8]</td>
+
+                                                    }
+                                                    else if (state.Trim().ToUpper() != corestate.Trim().ToUpper())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList1.Rows[j][8]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][8]</td>
+                                                    }
+                                                }
+
+                                                else if (k == 10)
+                                                {
+                                                    var a = _dtIPOList.Rows[j][6].ToString().ToUpper();
+                                                    var b = _dtIPOList1.Rows[j][10].ToString().ToUpper();
+
+                                                    if (a.Trim() != b.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList1.Rows[j][10]</td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList1.Rows[j][k]</td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td>@_dtIPOList1.Rows[j][k]</td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                            <a style=" margin-left: 41rem; margin-top: -2rem; color: orangered; font-weight: bold; " class="btn btn-outline-success" href="http://192.168.99.33:1035/UI/Common/UserLogin.aspx" target="_blank">CREATE CLIENT IN DION ADMIN PANEL</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="border">
+            <div class="row">
+                <label>Bank Details_CBOS</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+                        @if (_dtIPOList2 != null && _dtIPOList2.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count2 = _dtIPOList2.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count2; i++)
+                                        {
+                                            <th>@_dtIPOList2.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList2.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList2.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList2.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <label>Bank Details_DION</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+                        @if (_dtIPOList3 != null && _dtIPOList3.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count3 = _dtIPOList3.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count3; i++)
+                                        {
+                                            <th>@_dtIPOList3.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+
+                                    @for (int j = 0; j < _dtIPOList3.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList3.Columns.Count; k++)
+                                            {
+
+                                                if (k == 1)
+                                                {
+                                                    var c = _dtIPOList2.Rows[0][1].ToString();
+                                                    var d = _dtIPOList3.Rows[0][1].ToString();
+                                                    if (c.Trim() != d.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList3.Rows[j][k]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList3.Rows[j][k]</td>
+                                                    }
+                                                }
+                                                else if (k == 2)
+                                                {
+                                                    var c = _dtIPOList2.Rows[0][2].ToString();
+                                                    var d = _dtIPOList3.Rows[0][2].ToString().Substring(5, 6);
+                                                    if (c.Trim() != d.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList3.Rows[0][k]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList3.Rows[0][k]</td>
+                                                    }
+                                                }
+                                                else if (k == 3)
+                                                {
+                                                    var c = _dtIPOList2.Rows[0][3].ToString();
+                                                    var d = _dtIPOList3.Rows[0][3].ToString();
+                                                    if (c.Trim() != d.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList3.Rows[j][k]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList3.Rows[j][k]</td>
+                                                    }
+                                                }
+                                                else if (k == 5)
+                                                {
+                                                    var c = _dtIPOList2.Rows[0][4].ToString();
+                                                    if (c.Trim() == "Y")
+                                                    {
+                                                        c = "1";
+                                                    }
+
+                                                    var d = _dtIPOList3.Rows[0][5].ToString();
+                                                    if (c.Trim() != d.Trim())
+                                                    {
+                                                        <td style="color:red">@_dtIPOList3.Rows[0][5]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@_dtIPOList3.Rows[j][k]</td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td>@_dtIPOList3.Rows[j][k]</td>
+                                                }
+
+                                            }
+                                        </tr>
+
+
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                            <a style=" margin-left: 41rem; margin-top: -2rem; color: orangered; font-weight: bold;" class="btn btn-outline-success" href="http://192.168.99.33:1035/UI/Common/UserLogin.aspx" target="_blank">CREATE CLIENT IN DION ADMIN PANEL</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="border">
+            <div class="row">
+                <label>DP Details_CBOS</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+                        @if (_dtIPOList4 != null && _dtIPOList4.Rows.Count > 0)
+                        {
+
+
+
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count4 = _dtIPOList4.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count4; i++)
+                                        {
+                                            <th>@_dtIPOList4.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList4.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList4.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList4.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label>DP Details_DION</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+                        @if (_dtIPOList5 != null && _dtIPOList5.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count5 = _dtIPOList5.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count5; i++)
+                                        {
+                                            <th>@_dtIPOList5.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList5.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList5.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList5.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                            <a style=" margin-left: 41rem; margin-top: -2rem; color: orangered; font-weight: bold;" class="btn btn-outline-success" href="http://192.168.99.33:1035/UI/Common/UserLogin.aspx" target="_blank">CREATE CLIENT IN DION ADMIN PANEL</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="border">
+            <div class="row">
+                <label>Nominee_Details_CBOS</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+
+
+                        @if (_dtIPOList6 != null && _dtIPOList6.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count6 = _dtIPOList6.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count6; i++)
+                                        {
+                                            <th>@_dtIPOList6.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList6.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList6.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList6.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <label>Nominee_Details_DION</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+
+
+                        @if (_dtIPOList7 != null && _dtIPOList7.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count7 = _dtIPOList7.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count7; i++)
+                                        {
+                                            <th>@_dtIPOList7.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList7.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList7.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList7.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="border">
+            <div class="row">
+                <label>Persmission Details_DION</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+
+
+                        @if (_dtIPOList8 != null && _dtIPOList8.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count8 = _dtIPOList8.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count8; i++)
+                                        {
+                                            <th>@_dtIPOList8.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList8.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList8.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList8.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="border">
+            <div class="row">
+                <label>BSE Status_DION</label>
+                <div class="col-md-12 col-sm-12">
+                    <div id="divSPReport" style="overflow: auto;width: 100%;">
+
+
+                        @if (_dtIPOList9 != null && _dtIPOList9.Rows.Count > 0)
+                        {
+                            <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                                <thead style="background: #f19668" class="text-center m-4">
+                                    <tr>
+                                        @{
+                                            var Count9 = _dtIPOList9.Columns.Count;
+                                        }
+                                        @for (int i = 0; i < Count9; i++)
+                                        {
+                                            <th>@_dtIPOList9.Columns[i].ColumnName</th>
+
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @for (int j = 0; j < _dtIPOList9.Rows.Count; j++)
+                                    {
+                                        <tr>
+                                            @for (int k = 0; k < _dtIPOList9.Columns.Count; k++)
+                                            {
+
+                                                <td>@_dtIPOList9.Rows[j][k]</td>
+
+                                            }
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        else
+                        {
+                            <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

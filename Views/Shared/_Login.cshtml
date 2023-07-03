@@ -1,0 +1,44 @@
+﻿
+<link href="~/Content/Login/Login.css" rel="stylesheet" />
+
+<style>
+    #img1 {
+        margin-left: -39px;
+        margin-top: -80px;
+        width: 98mm;
+        height: 18rem;
+    }
+</style>
+
+
+<div class="container">
+
+    <div style=" max-width: 350px; padding: 28px 28px; margin: 30mm 22rem 2rem 38rem;" class="card card-container">
+        <img id="img1" src="~/Content/IMG/motilal_oswal-01.png" />
+        <p style="color: black; padding-right: 3rem;margin-top:-44px" id="profile-name" class="profile-name-card">Login</p>
+        <br />
+
+        <div class="form-signin">
+
+            <input class="form-control" id="UserID" name="UserID" placeholder="Enter UserID" required type="text">
+            @*@Html.ValidationMessageFor(m => m.UserID, "", new { @class = "text-danger" })*@
+
+            <input class="form-control" id="Password" name="Password" placeholder="Enter Password" required type="password">
+            @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+            <br />
+            <div>
+                <input type="submit" id="btnLogin" class="btn btn-lg btn-primary btn-block btn-signin" value="Login" />
+                <br />
+
+            </div>
+
+        </div>
+
+        <span id="msg" style="font-size: 1.5rem; padding-left: 8rem; margin-top: 1rem;"></span>
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/Custom/login.js"></script>

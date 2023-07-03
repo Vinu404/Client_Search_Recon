@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "DowloadExcelFile";
+}
+
+<style>
+    .Exceldiv {
+        height: 12rem;
+        width: 59rem;
+        margin: 7rem 0px 0px 25rem;
+        box-shadow: 1px 0px 4px 2px;
+        background: #ffffff;
+    
+    }
+
+    .dropdown {
+        margin-left: -2rem;
+        padding: 2rem;
+    }
+
+    select {
+        width: 17rem;
+        border-radius: 1rem;
+        box-shadow: 2px 2px 4px;
+        padding: 4px;
+        margin-left: 11px;
+    }
+
+    label {
+        margin-left: 2rem;
+        padding: 9px 2px 0px 0px;
+        margin-top: 1rem;
+        font-weight: bolder;
+    }
+
+
+
+    input {
+        border-radius: 1rem;
+        padding: 3px;
+    }
+
+    #btn {
+        margin-left: 5px;
+    }
+</style>
+
+
+
+
+<div class="container">
+    <div class="Exceldiv">
+
+
+        <form id="onlineform">
+            <div class="date">
+                <div class="date">
+
+                    <label>From Date :-</label>@Html.TextBox("formdate", "", new { @type = "date", @data_val = "true", @data_val_required = "Billing Address is required" })
+
+                    <label style="margin-left: 8px;">To Date :-</label> @Html.TextBox("todate", "", new { @type = "date" })
+                </div>
+                <div class="dropdown">
+
+                    @Html.DropDownList("missingdata", new List<SelectListItem>
+                    {
+                  
+                    new SelectListItem { Text = "Missing Bank", Value="MissingBank" } ,
+                    new SelectListItem { Text = "Missing Dp", Value="MissingDp" } ,
+                    new SelectListItem { Text = "Missing BSE", Value="MissingBSE" } ,
+                    new SelectListItem { Text = "Missing Client", Value="Client" },
+                    }, "Please Select File")
+
+                    @Html.DropDownList("missingclient", new List<SelectListItem>
+                    {
+                   
+                    new SelectListItem { Text = "Mobile", Value="Mobile" },
+                    new SelectListItem { Text = "Email", Value="Email" } ,
+                    new SelectListItem { Text = "Dp", Value="Dp" } ,
+                    new SelectListItem { Text = "Tax", Value="Tax" } ,
+                    }, "Please Select File")
+                   
+                    <input id="btnExport" style="margin-left:8.5px" type="button" value="CBOS VS DION Excel File" class="btn btn-success" />
+
+                   
+
+                </div>
+            </div>
+        </form>
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/Custom/ExcelFile.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+ 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#btnExport').on('click', function () {
+            debugger;
+            var formdate = $("#formdate").val();
+            var todate = $("#todate").val();
+            var missingclient = $("#missingclient").val();
+            var missingdata = $("#missingdata").val();
+
+            if (missingclient != '' && missingdata != '') {
+                $("#myModal").modal('show');
+                $("#SpnMsg").html("Select only one FileType");
+                return;
+            }
+            if (formdate == '' && todate == '' && (missingclient == '' || missingdata=='')) {
+                $("#myModal").modal('show');
+                $("#SpnMsg").html("Required All Field..Select only one FileType");
+                return;
+            }
+            if (formdate == "") {
+                $("#myModal").modal('show');
+                $("#SpnMsg").html("Select FormDate");
+                return;
+            }
+            if (todate == "") {
+                $("#myModal").modal('show');
+                $("#SpnMsg").html("Select EndDate");
+                return;
+            }
+            if (missingclient == "" && missingdata=="") {
+                $("#myModal").modal('show');
+                $("#SpnMsg").html("Select File Type.");
+                return;
+            }
+            
+            var form = $("form").serialize();
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '/Client/Dowload',
+                dataType: "json",
+                data: form,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (r) {
+                    debugger;
+                    if (r.Status == "1") {
+                        $("#myModal").modal('show');
+                        $("#SpnMsg").html(r.message);
+                        
+                        return;
+                    }
+                    if (r.Status == "-1") {
+                        window.location.href = r.url;
+                        return;
+                    }
+                    else {
+
+                        //Convert Base64 string to Byte Array.
+                        var bytes = Base64ToBytes(r);
+
+                        //Convert Byte Array to BLOB.
+                        var blob = new Blob([bytes], { type: "application/octetstream" });
+
+                        //Check the Browser type and download the File.
+                        var isIE = false || !!document.documentMode;
+                        if (isIE) {
+                            window.navigator.msSaveBlob(blob, "Mobile.xlsx");
+                        } else {
+                            var url = window.URL || window.webkitURL;
+                            link = url.createObjectURL(blob);
+                            var a = $("<a />");
+                            a.attr("download", "Mobile.xlsx");
+                            a.attr("href", link);
+                            $("body").append(a);
+                            a[0].click();
+                            $("body").remove(a);
+                        }
+                    }
+                    
+                },
+                complete: function () {
+                    $('#loading').hide();
+                }
+            });
+        });
+    });
+
+    function Base64ToBytes(base64) {
+        debugger;
+        var binary_string = window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+</script>

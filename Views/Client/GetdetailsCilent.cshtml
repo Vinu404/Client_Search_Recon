@@ -1,0 +1,173 @@
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    #Condetails {
+        margin: 8rem 32rem 0rem;
+        border: 1px solid;
+        width: 51rem;
+        height: 29rem;
+        box-shadow: 0px 0px 4px 2px;
+        text-transform: uppercase;
+        background-color: #ffffff;
+        position: fixed;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="row">
+       @* <i id="fileupload" title="Upload Client Code" class="fa fa-upload" style="font-size: 25px; cursor: pointer; margin-left: 75rem; margin-top: 105px; z-index: 10000; position: fixed;"></i>*@
+        <div id="Condetails" class="col-1">
+
+            <label id="lbl1">ClientCode : -</label><input id="clientcode" @*onchange="uploadFileABUGN()"*@ type="text" class="form-control" />
+
+            <label id="lbl3">File Type:-</label>
+            <select id="filetype" class="form-control">
+                <option value="UCC">UCC</option>
+                <option value="FATCA">FATCA</option>
+            </select>
+            <label id="lbl2">Exchange Type:-</label>
+            <select id="Exchange" class="form-control">
+                <option value="MFI">MFI</option>
+                <option value="MFD">MFD</option>
+            </select>
+
+            <button id="btn" style=" margin: 2rem -23.5px 0rem 8px;" class="btn btn-primary" onclick="getClick()">Push To BSE</button>
+            <button style="color: white; background: #f9a203;margin-top:10px" id="btn2" class="btn" onclick="GenrateAppFile()" title="APP NAME 1 MODIFICATION NOT ALLOWED IN MEMBER LOGIN">Genrate App File</button>
+            @*<span class="tooltiptext">APP NAME 1 MODIFICATION NOT ALLOWED IN MEMBER LOGIN</span>*@
+            <button id="btn2" style="margin-top: 8px" class="btn btn-danger" onclick="clickBankfile()">Genrate Bank File</button>
+
+
+
+            <div style="margin-left:19px">
+                <button id="btn1" class="btn btn-success" onclick="RedirectClientDPUCCText()">Generate Ucc Text</button>
+                <button id="btn1" class="btn btn-info" onclick=" DowloadCDSLFILE()">Genrate Dp File</button>
+                <button id="btn3" class="btn btn-warning" onclick="DowloadNSDLFILE()">Genrate Nominee File</button>
+
+            </div>
+
+
+
+
+        </div>
+        <label style="margin-top:38rem" id="lbl"></label>
+    </div>
+
+</div>
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/Custom/TxtFileDowload.js"></script>
+<script src="~/Scripts/Custom/uploadfileABUGN.js"></script>
+<script>
+    function getClick() {
+        debugger;
+        var clientCode = $("#clientcode").val();
+        var filetype = $("#filetype").val();
+        var Exchange = $("#Exchange").val();
+
+        var dataValue = '{ "ClientCode": "' + clientCode + '" ,"fileType" : "' + filetype + '","ExchangeType" : "' + Exchange + '"}';
+        if (clientCode == "") {
+            $("#myModal").modal('show');
+            $("#SpnMsg").html("Please Enter Client Code");
+            return
+        }
+
+
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "https://liteweb.motilaloswal.com/BSEStarMFAPI/BSEStarMFExchangeServices.ClientRegistration?ClientCode=" + clientCode + "&FileType=" + filetype + "&ExchangeType=" + Exchange + "&RequestedBy=APISERVER&Action=webservice",
+            beforeSend: function() {
+               $('#loading').show();
+            },
+            success: function (data) {
+                debugger;
+
+                
+                $("#lbl").html(JSON.stringify(data)).css("color", "green");
+                setTimeout(function () {
+                  $("#lbl").html("");
+                },10000);
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (e) {
+                alert("Failure");
+                
+            }
+        });
+    }
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $(".btn").mouseenter(function () {
+            $(".tooltiptext").css("visibility", "visible");
+        });
+        
+    });
+    function GenrateAppFile() {
+        debugger;
+        var txtclientcode = $("#clientcode").val();
+        var Exchangetype = $("#Exchange").val();
+        if (txtclientcode == "") {
+            $("#myModal").modal('show');
+            $("#SpnMsg").html("Please Enter Client Code");
+            return;
+        }
+        var dataValue = '{ "ClientCode": "' + txtclientcode + '","Exchanangetype" : "' + Exchangetype + '" }';
+        $.ajax({
+            type: "POST",
+            url: "/Client/GenrateFileAppMFI_MFD/",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: dataValue,
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (result) {
+                debugger;
+                if (result.Status == -1) {
+                    window.location.href = result.url;
+                    return;
+                }
+                if (result.Status == "0") {
+
+                    alert(result.Message + txtclientcode);
+
+                }
+                else if (result.Status == "1") {
+                    toastr.success(result.Message, "Success", { timeOut: 3000, "closeButton": true });
+                    window.location.href = "/Client/DownloadModificationText/?FileName=" + result.filename;
+                }
+
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function () {
+                alert("ENTER VALIDE CLIENT CODE");
+            }
+        });
+    }
+</script>
+
+
+<script>
+    $("#fileupload").click(function () {
+        if ($("#fileupload").hasClass("fa fa-upload")) {
+            $("#clientcode").attr("type", "file");
+            $("#fileupload").removeClass("fa fa-upload");
+            $("#fileupload").addClass("fa fa-pencil").attr("title", "Enter Client Code")
+        }
+        else {
+            $("#clientcode").attr("type", "text");
+            $("#fileupload").removeClass("fa fa-pencil");
+            $("#fileupload").addClass("fa fa-upload").attr("title", "ClientCode Bulk File Upload")
+        }
+    })
+</script>
+

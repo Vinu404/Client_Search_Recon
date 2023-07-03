@@ -1,0 +1,126 @@
+﻿@using System.Data
+@using ClientserachUtiliy.Models
+@model DataSet
+
+
+@{
+    DataSet _dsDataMpping = Model != null ? Model : new DataSet();
+
+    DataTable _dtListMapping = _dsDataMpping.Tables[0] != null ? _dsDataMpping.Tables[0] : new DataTable();
+    DataTable _dtListMapping1 = _dsDataMpping.Tables[1] != null ? _dsDataMpping.Tables[1] : new DataTable();
+    
+}
+
+<link href="~/Content/TableCss.css" rel="stylesheet" />
+
+
+<div id="border">
+    <div class="row">
+        <label>CBOS MAPPING</label>
+        <div class="col-md-12 col-sm-12">
+            <div id="divSPReport" style="overflow: auto;width: 100%;">
+                @if (_dtListMapping != null && _dtListMapping.Rows.Count > 0)
+                {
+
+                    <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                        <thead style="background: #f19668" class="text-center m-4">
+                            <tr>
+                                @{
+                                    var Count = _dtListMapping.Columns.Count;
+                                }
+                                @for (int i = 0; i < Count; i++)
+                                {
+                                    <th>@_dtListMapping.Columns[i].ColumnName</th>
+
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+                            @for (int j = 0; j < _dtListMapping.Rows.Count; j++)
+                            {
+                                <tr>
+                                    @for (int k = 0; k < _dtListMapping.Columns.Count; k++)
+                                    {
+
+                                        <td>@_dtListMapping.Rows[j][k]</td>
+
+                                    }
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+
+                }
+
+                else
+                {
+                    <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="border">
+    <div class="row">
+        <label>DION MAPPING</label>
+        <div class="col-md-12 col-sm-12">
+            <div id="divSPReport" style="overflow: auto;width: 100%;">
+                @if (_dtListMapping1 != null && _dtListMapping1.Rows.Count > 0)
+                {
+
+                    <table class="table table-bordered table-responsive-sm table-striped table-hover" id="ListTable">
+                        <thead style="background: #f19668" class="text-center m-4">
+                            <tr>
+                                @{
+                                    var Count1 = _dtListMapping1.Columns.Count;
+                                }
+                                @for (int i = 0; i < Count1; i++)
+                                {
+                                    <th>@_dtListMapping1.Columns[i].ColumnName</th>
+
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+                            @for (int j = 0; j < _dtListMapping1.Rows.Count; j++)
+                            {
+                                <tr>
+                                    @for (int k = 0; k < _dtListMapping1.Columns.Count; k++)
+                                    {
+
+                                        <td>@_dtListMapping1.Rows[j][k]</td>
+
+                                    }
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+
+                }
+
+                else
+                {
+                    <h2 style="text-align: center; padding: 2px;">No Records</h2>
+                }
+            </div>
+        </div>
+    </div>
+</div>

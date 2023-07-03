@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Recancilation";
+}
+
+
+<style>
+    /*#container {
+        border: 1px solid;
+         margin: 3rem 1rem;
+        height: 58rem;
+        box-shadow: 0rem 0rem 1rem 2px;
+        background-color :snow;
+    }*/
+    .div1 {
+        height: 15rem;
+        width: 43rem;
+        margin: 3rem 0px 0px 25rem;
+        box-shadow: black 2px 5px 1rem;
+        /* min-height: 21rem; */
+        background: white;
+    }
+
+    .div2 {
+        height: 12rem;
+        width: 53rem;
+        margin: 7rem 0px 0px 25rem;
+        box-shadow: black 2px 5px 1rem;
+        background: white;
+    }
+
+    label {
+        margin: 0px 0px 0px 1rem;
+        font-size: 17px;
+        font-family: math;
+    }
+
+    #btn {
+        margin: 7px 0px 6px 13px;
+    }
+
+    #excel {
+        border: 1px solid;
+        box-shadow: 0px 1px 2px 0px;
+        height: 3rem;
+        background: beige;
+    }
+</style>
+
+<div id="container" class="container-fluid">
+
+
+    <div class="div2">
+        <label>Missing Client</label> &nbsp;<button style="margin: 17px 0px 14px 0px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-warning">CBOS VS DION</button>
+        <label>Missing Bank</label>&nbsp;<button style="margin: 0px 0rem 5px 11px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-warning">CBOS VS DION</button>
+        <label>Missing Dp</label>&nbsp;<button style=" margin: 9px 0px 14px 30px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-warning">CBOS VS DION</button>
+        <label>Missing BSE</label>&nbsp;<button style=" margin: 7px 0px 14px 21px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-warning">CBOS VS DION</button>
+    </div>
+    <div class="div1">
+        <label>Mobile </label> &nbsp;@*<button id="btn" style="margin: 9px 0px 9px -1px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-success" value="Mobile" onclick="dowloadExcelFile()">CBOS VS DION</button>*@ <a href="/Client/Dowload" style="margin: 9px 0px 9px -1px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-primary">Mobile</a>
+        <label>Email  </label>&nbsp;<button style=" margin: 0px 0rem 0px 11px; height: 3rem; box-shadow: black 1px 1px 3px;" class="btn btn-success" value="Email">CBOS VS DION</button>
+        <label>Dp</label>&nbsp;<button style="margin: 9px 0px 6px 35px;height: 3rem;box-shadow: black 1px 1px 3px;" class="btn btn-success" value="Dp">CBOS VS DION</button>
+        <label>Tax</label>&nbsp;<button style="margin: 8px 0px 6px 32px;height: 3rem;box-shadow: black 1px 1px 3px;" class="btn btn-success" value="Tax">CBOS VS DION</button>
+        <label>Bank</label>&nbsp;<button style="margin: 14px 0px 9px 18px;height: 3rem;box-shadow: black 1px 1px 3px;" class="btn btn-success" value="Bank">CBOS VS DION</button>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/Custom/dowloadExcelFile.js"></script>

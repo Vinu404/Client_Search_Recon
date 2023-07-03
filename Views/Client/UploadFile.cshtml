@@ -1,0 +1,37 @@
+﻿
+<style>
+    #row1 {
+        margin-top: 0rem;
+        margin-left: 7rem;
+        padding-top: 1rem;
+    }
+    #uploadfile {
+        height: 5rem;
+        width: 76rem;
+        margin: 14rem 0rem 0rem 14rem;
+        box-sizing: content-box;
+        box-shadow: black 1px 1px 3px 2px;
+        background: #ffffff;
+    }
+</style>
+<div>
+    <div class="container">
+        <div id="uploadfile">
+            <div class="row" id="row1">
+                <div class="col-md-3" style="width:auto; padding-right:0px;">
+                    <label style="padding:3px;">Upload File :</label>
+                </div>
+                <div class="col-md-3" style="width:auto; padding-right:0px;">
+                    <input type="file" style="width:100%;font-size: 12px;height: 28px;padding: 3px;" class="form-control" id="fuSPM" />
+                </div>
+                <div class="col-md-3" style="width:auto; padding-right:0px;">
+                    <input type="button" class="btn-warning" id="btnUploadSP" value="Upload" onclick="UploadSP()" />
+                </div>
+                <div class="col-md-3" style="width:auto; padding-right:0px;">
+                    <input type="button" class="btn-success" id="btnDwnldSampleFile" onclick="DownloadSampleFile()" value="Download Sample File" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Custom/uploadFile.js"></script>
